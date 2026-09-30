@@ -1,0 +1,14 @@
+# 忽略node依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+# electron相关缓存
+dist/
+out/
+# 系统文件
+.DS_Store
+Thumbs.db
+# vscode配置（可选）
+.vscode/
