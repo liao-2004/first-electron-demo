@@ -35,5 +35,19 @@ contextBridge.exposeInMainWorld('myApi', {
    */
   readFile: async () => {
     return await ipcRenderer.invoke('file-read')
+  },
+
+  /**
+   * 接收主进程主动推送的消息（主进程 → 渲染层，单向）
+   * 作用：主进程随时可以主动向渲染进程推送消息（例如通知、状态更新），
+   *       渲染进程注册回调后，每次收到推送都会触发
+   * 参数：
+   *   @param {Function} callback - 收到消息时的回调，参数为推送的数据
+   * 底层通信：ipcRenderer.on('main-to-render', (event, data) => ...)
+   *   说明：与 send/on、invoke/handle 不同，这条消息由主进程发起，
+   *   主进程用 win.webContents.send('main-to-render', data) 推送
+   */
+  onMessage: (callback) => {
+    ipcRenderer.on('main-to-render', (_event, data) => callback(data))
   }
 })

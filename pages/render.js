@@ -33,3 +33,13 @@ readBtn.addEventListener('click', async () => {
   const text = await window.myApi.readFile()
   alert(text ? `文件内容：\n${text}` : '文件内容为空')
 })
+
+// ---------- 接收主进程主动推送的消息 ----------
+// 对应 preload 的 window.myApi.onMessage(callback)：
+//   主进程在页面加载完成后用 win.webContents.send('main-to-render', data) 推送，
+//   渲染层通过 ipcRenderer.on('main-to-render', ...) 订阅接收
+// 与另外两种方式不同：这条消息由主进程主动发起，渲染层只需被动接收
+window.myApi.onMessage((data) => {
+  console.log('收到主进程消息：', data)
+  alert(`来自主进程：${data}`)
+})

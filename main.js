@@ -49,6 +49,17 @@ function createWindow() {
 
   // 加载页面，路径相对于 main.js
   win.loadFile(path.join(__dirname, 'pages', 'index.html'))
+
+  // ------------------------------------------------------------
+  // 主进程 → 渲染层（单向推送通道 'main-to-render'）
+  // 对应渲染进程 API：window.myApi.onMessage(callback)
+  // 页面加载完成后，主进程主动向渲染进程推送一条消息；
+  // 与 send/on、invoke/handle 不同，这条消息由主进程发起，
+  // 通过 webContents.send 推送，渲染层用 ipcRenderer.on 订阅接收
+  // ------------------------------------------------------------
+  win.webContents.on('did-finish-load', () => {
+    win.webContents.send('main-to-render', '来自主进程：窗口已加载完成')
+  })
 }
 
 // ============================================================

@@ -4,12 +4,49 @@
   "description": "Electron 入门示例：主进程与渲染进程通过 IPC 实现文件读写",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon --exec electron ."
+    "start": "nodemon --exec electron .",
+    "build":"electron-builder"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "copyright": "Copyright © 2026 某某公司",
+    "compression": "normal",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "pages/**/*",
+      "!node_modules/**/*"
+    ],
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine":true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.png",
+      "uninstallerIcon": "build/icon.png",
+      "installerHeaderIcon": "build/icon.png",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "我的桌面应用"
+    }
   },
   "author": "demo",
   "license": "ISC",
   "devDependencies": {
     "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
     "nodemon": "^3.1.14"
   }
 }

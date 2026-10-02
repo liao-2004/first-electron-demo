@@ -19,10 +19,13 @@ npm start     # 启动（nodemon 会在代码改动后自动重启）
 | `pages/render.js` | 渲染进程脚本：绑定按钮事件，调用 `window.myApi` |
 | `pages/index.css` | 页面样式 |
 
-## IPC 通信方式（本项目用到两种）
+## IPC 通信方式（本项目覆盖三种）
 
-- **单向（send / on）**：`saveFile` 用 `ipcRenderer.send('file-save', data)` 发送，主进程用 `ipcMain.on('file-save', ...)` 接收，只发不收。
-- **双向（invoke / handle）**：`readFile` 用 `ipcRenderer.invoke('file-read')` 请求，主进程用 `ipcMain.handle('file-read', ...)` 处理并 `return` 结果。
+| 方向 | 方式 | 通道 | 对应代码 |
+| --- | --- | --- | --- |
+| 渲染层 → 主进程（单向） | send / on | `file-save` | `saveFile`：`ipcRenderer.send` → `ipcMain.on` |
+| 渲染层 ↔ 主进程（双向） | invoke / handle | `file-read` | `readFile`：`ipcRenderer.invoke` → `ipcMain.handle` 并 return |
+| 主进程 → 渲染层（单向） | webContents.send / ipcRenderer.on | `main-to-render` | `onMessage`：主进程主动推送，渲染层订阅接收 |
 
 ## 数据文件位置
 
