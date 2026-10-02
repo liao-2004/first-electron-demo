@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="./index.css">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- 内容安全策略：只允许加载本地资源，防止注入外部脚本 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <title>electron 项目</title>
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <h1>第一课</h1>
+    <!-- 输入框：输入要保存的文本 -->
+    <input id="message" type="text" placeholder="请输入要保存的内容">
+    <!-- 保存：把输入框内容写入文件（底层走 window.myApi.saveFile） -->
+    <button id="save">保存</button>
+    <!-- 读取：把文件内容读取出来（底层走 window.myApi.readFile） -->
+    <button id="read">读取</button>
+    <!-- 脚本放在 body 末尾，保证上面的 DOM 元素已经加载完毕 -->
+    <script src="./render.js"></script>
 </body>
 </html>

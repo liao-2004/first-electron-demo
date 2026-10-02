@@ -1,14 +1,15 @@
 {
-  "name": "electron",
+  "name": "first-electron-demo",
   "version": "1.0.0",
-  "description": "electron 项目",
+  "description": "Electron 入门示例：主进程与渲染进程通过 IPC 实现文件读写",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "nodemon --exec electron ."
   },
   "author": "demo",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^44.5.1"
+    "electron": "^44.5.1",
+    "nodemon": "^3.1.14"
   }
 }
